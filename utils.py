@@ -102,7 +102,7 @@ def write_blackbox_output_batchiter(loader, model, wf, device='cpu', ifscore=Tru
                 wf.writerow([pep_seq, tcr_seq, int(pred[i])])
 
 
-def get_performance_batchiter(loader, model, device='cpu'):
+def get_performance_batchiter(loader, model, device='cpu',return_scores=False,):
     '''
     print classification performance for binary task
 
@@ -127,6 +127,9 @@ def get_performance_batchiter(loader, model, device='cpu'):
 
     perf = get_performance(score, label)
     perf['loss'] = round(loss, 4)
+    if return_scores:
+        perf['score']=score
+        perf['label']=label
 
     return perf
 
